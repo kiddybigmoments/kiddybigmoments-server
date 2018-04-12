@@ -62,8 +62,8 @@ A **POST** request must be done.
 
 ```
 {
-  "username": jose
-    "email": jose@jose.com
+  "username": jose,
+  "email": jose@jose.com
 }
 ```
 
@@ -76,8 +76,8 @@ The user must be registered in the application and do a **POST** request
 
 ```
 {
-  "username": jose
-    "password": supersegura
+  "username": jose,
+  "password": supersegura
 }
 ```
 
@@ -98,11 +98,11 @@ The fields retrieved are these ones:
 ```
 {
   "title": "Título del artículo",
-    "image": "http://images/my_image.com",
-    "summary": "Resumen",
-    "body": "Contenido",
-    "publication_date": "2017-12-02",
-    "category":[1, 2]
+  "image": "http://images/my_image.com",
+  "summary": "Resumen",
+  "body": "Contenido",
+  "publication_date": "2017-12-02",
+  "category":[1, 2]
 }
 ```
 

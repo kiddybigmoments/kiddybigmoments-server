@@ -26,7 +26,8 @@ SECRET_KEY = '5911rm-7p89p57z0j#sk81%$e=sea-a2sx+0+25=5m8@*zolbf'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'kiddybigmoments.herokuapp.com',
+    'kiddybigmoments-server.herokuapp.com',
+    'api.kiddybigmoments.site',
     'localhost',
     '127.0.0.1'
 ]
