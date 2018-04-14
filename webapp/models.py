@@ -15,7 +15,7 @@ class Photo(models.Model):
     kids = models.ForeignKey(Kid, on_delete=models.CASCADE)
     title = models.CharField(max_length=60, verbose_name="Título")
     description = models.TextField(blank=True, null=True, verbose_name="Descripción")
-    image_location = models.ImageField()
+    image_location = models.URLField(blank=True, null=True, verbose_name="Imagen")
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
