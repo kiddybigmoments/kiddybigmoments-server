@@ -2,8 +2,8 @@
 
 ### Development setup
 
-1. Install Python 3.5+ and install the dependencies: `pip install -r requirements.txt`
-2. Install requirements using: `pip install -r requirements.txt`
+1. Install Python 3.4 or later. Create a virtual environment in Python and activate it. This can be done using the command-line or using the pyCharm graphical assistant.
+2. Install the dependencies: `pip install -r requirements.txt`
 3. Enter the folder where `manage.py` is located.
 4. Create database and apply migrations: `python manage.py makemigrations` and `python manage.py migrate`
 5. Run development server: `python manage.py runserver`
