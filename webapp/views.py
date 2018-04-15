@@ -1,4 +1,9 @@
-from django.shortcuts import HttpResponse
+from rest_framework import generics
+from .models import Photo
+from .serializers import PhotoSerializer
 
-def index(request):
-    return HttpResponse("Página de bienvenida de kiddysBigMoments")
+
+class ListPhotosView(generics.ListAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+

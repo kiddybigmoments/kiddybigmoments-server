@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from webapp.views import index
+from webapp.views import ListPhotosView
 
 urlpatterns = [
-    path('', index),  ## include('webapp.urls')),
     path('admin/', admin.site.urls),
+    path('api/v1/photos', ListPhotosView.as_view(), name="photos-all")
 
 # API REST
     # path('api/1.0/hello', HelloWorld.as_view(), name="api_hello_world"),
