@@ -21,4 +21,10 @@ from webapp.views import index
 urlpatterns = [
     path('', index),  ## include('webapp.urls')),
     path('admin/', admin.site.urls),
+
+# API REST
+    # path('api/1.0/hello', HelloWorld.as_view(), name="api_hello_world"),
+    # path('api/1.0/photos', PhotosListAPI.as_view(), name="api_photos_list"),
+    # path('api/1.0/photos/<int:pk>', PhotoDetailAPI.as_view(), name="api_photos_detail"),
+
 ]

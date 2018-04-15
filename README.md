@@ -6,7 +6,8 @@
 2. Install the dependencies: `pip install -r requirements.txt`
 3. Enter the folder where `manage.py` is located.
 4. Create database and apply migrations: `python manage.py makemigrations` and `python manage.py migrate`
-5. Run development server: `python manage.py runserver`
+5. Create an admin user: `python manage.py createsuperuser`
+6. Start the development server: `python manage.py runserver`
 
 
 ## Using the API
