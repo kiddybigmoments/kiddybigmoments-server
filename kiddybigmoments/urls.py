@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework_jwt.views import obtain_jwt_token
 
-from webapp.views import ListPhotosView, LoginView
+from webapp.views import ListPhotosView, LoginView, RegisterUsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-token-auth', obtain_jwt_token, name='create-token'),
+    path('auth/register', RegisterUsersView.as_view(), name="auth-register"),
     path('auth/login', LoginView.as_view(), name="auth-login"),
     path('api/v1/photos', ListPhotosView.as_view(), name="photos-all"),
 
