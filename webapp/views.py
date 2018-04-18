@@ -13,7 +13,7 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 class ListPhotosView(generics.ListAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
 
 class LoginView(generics.CreateAPIView):
