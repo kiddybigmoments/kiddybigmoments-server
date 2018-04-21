@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework_jwt.views import obtain_jwt_token
 
-from webapp.views import ListPhotosView, LoginView, RegisterUsersView
+from webapp.views import ListKidsView, ListPhotosView, LoginView, RegisterUsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('auth/register', RegisterUsersView.as_view(), name="auth-register"),
     path('auth/login', LoginView.as_view(), name="auth-login"),
     path('api/v1/photos', ListPhotosView.as_view(), name="photos-all"),
+    path('api/v1/kids', ListKidsView.as_view(), name="kids-all"),
 
 
 # API REST

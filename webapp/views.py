@@ -3,11 +3,17 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 from rest_framework import generics, permissions, status
-from .models import Photo
-from .serializers import PhotoSerializer, TokenSerializer
+from .models import Photo, Kid
+from .serializers import KidSerializer, PhotoSerializer, TokenSerializer
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+
+class ListKidsView(generics.ListAPIView):
+    queryset = Kid.objects.all()
+    serializer_class = KidSerializer
+    # permission_classes = (permissions.IsAuthenticated,)
 
 
 class ListPhotosView(generics.ListAPIView):
