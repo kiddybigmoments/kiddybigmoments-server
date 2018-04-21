@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5911rm-7p89p57z0j#sk81%$e=sea-a2sx+0+25=5m8@*zolbf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True     # Django does not serve any static or media files when DEBUG = False
 
 ALLOWED_HOSTS = [
     'kiddybigmoments-server.herokuapp.com',
@@ -179,3 +179,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
