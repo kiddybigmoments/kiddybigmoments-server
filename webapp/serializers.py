@@ -9,6 +9,8 @@ class KidSerializer(serializers.ModelSerializer):
 
 
 class PhotoSerializer(serializers.ModelSerializer):
+    kids = KidSerializer(read_only=True, many=True)
+
     class Meta:
         model = Photo
         fields = '__all__'
