@@ -17,20 +17,17 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework_jwt.views import obtain_jwt_token
 
-from webapp.views import ListKidsView, ListPhotosView, LoginView, RegisterUsersView
+from webapp.views import ListKidsView, ListPhotosView, KidsDetailView, PhotosDetailView
+from webapp.views import LoginView, RegisterUsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-token-auth', obtain_jwt_token, name='create-token'),
     path('auth/register', RegisterUsersView.as_view(), name="auth-register"),
     path('auth/login', LoginView.as_view(), name="auth-login"),
-    path('api/v1/photos', ListPhotosView.as_view(), name="photos-all"),
-    path('api/v1/kids', ListKidsView.as_view(), name="kids-all"),
-
-
-# API REST
-    # path('api/1.0/hello', HelloWorld.as_view(), name="api_hello_world"),
-    # path('api/1.0/photos', PhotosListAPI.as_view(), name="api_photos_list"),
-    # path('api/1.0/photos/<int:pk>', PhotoDetailAPI.as_view(), name="api_photos_detail"),
+    path('api/v1/photos', ListPhotosView.as_view(), name="api-photos-list"),
+    path('api/v1/photos/<int:pk>', PhotosDetailView.as_view(), name="api-photos-detail"),
+    path('api/v1/kids', ListKidsView.as_view(), name="api-kids-list"),
+    path('api/v1/kids/<int:pk>', KidsDetailView.as_view(), name="api-kids-detail"),
 
 ]
