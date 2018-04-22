@@ -20,7 +20,12 @@ The Photo object has the following fields:
         "kids": [
             {
                 "id": 1,
-                "first_name": "Matías",
+                "parents": {
+                    "id": 1,
+                    "mother": "pepita",
+                    "father": "pepito"
+                },
+                "first_name": "Juanitoooo",
                 "last_name": "López"
             }
         ],
@@ -29,7 +34,18 @@ The Photo object has the following fields:
         "image_location": "https://www.piccolafesta.com/wp-content/uploads/2017/07/quq1-940x920-768x752.jpg",
         "created_at": "2018-04-18T21:09:03.793819Z",
         "modified_at": "2018-04-18T21:09:03.793873Z"
-    },
+    }
+
+```
+
+The Parents object is the following:
+
+```
+{
+        "id": 1,
+        "mother": "pepita",
+        "father": "pepito"
+}
 ```
 
 All the endpoints require authentication, except the login request.
@@ -48,7 +64,7 @@ Only for GET requests.
 
 ### api/v1/photos/:id
 
-GET, BATCH and DELETE requests for a certain photo.
+GET, BATCH, POST and DELETE requests for a certain photo.
 
 ### api/v1/kids
 
@@ -56,7 +72,18 @@ Only for GET requests.
 
 ### api/v1/kids/:id
 
-GET, BATCH and DELETE requests for a certain kid.
+GET, BATCH, POST and DELETE requests for a certain kid.
+
+
+For the time being, user and parents are equivalent.
+
+### api/v1/users
+
+Only for GET requests.
+
+### api/v1/users/:id
+
+GET, BATCH, POST and DELETE requests for a certain user.
 
 ## TBD
-Endpoints for users. 
+Show only the kids associated to the current user. 
