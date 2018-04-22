@@ -1,8 +1,21 @@
 from rest_framework import serializers
-from .models import Photo, Kid
+
+from webapp.models import Photo, Kid, Parents
+
+
+class ParentsSerializer(serializers.ModelSerializer):
+    # kids = serializers.PrimaryKeyRelatedField(many=True, queryset=Kid.objects.all)
+    mother = serializers.ReadOnlyField(source='mother.username')
+    father = serializers.ReadOnlyField(source='father.username')
+
+    class Meta:
+        model = Parents
+        fields = '__all__'
 
 
 class KidSerializer(serializers.ModelSerializer):
+    parents = ParentsSerializer(read_only=True, many=False)
+
     class Meta:
         model = Kid
         fields = '__all__'
