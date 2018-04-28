@@ -1,5 +1,5 @@
 from django.db import models
-
+from PIL import Image
 
 class Parents(models.Model):
     mother = models.ForeignKey('auth.User', related_name='madre_del_niño', on_delete=models.CASCADE)
@@ -23,7 +23,7 @@ class Photo(models.Model):
     kids = models.ManyToManyField(Kid)  # on_delete=models.CASCADE)
     title = models.CharField(max_length=60, verbose_name="Título")
     description = models.TextField(blank=True, null=True, verbose_name="Descripción")
-    image_location = models.URLField(blank=True, null=True, verbose_name="Imagen")
+    image = models.ImageField(default='photos/generic_baby.jpg', upload_to='photos/', max_length=254)
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)

@@ -31,7 +31,7 @@ The Photo object has the following fields:
         ],
         "title": "Foto 2",
         "description": "Esto es la foto del bautizo de Matías.",
-        "image_location": "https://www.piccolafesta.com/wp-content/uploads/2017/07/quq1-940x920-768x752.jpg",
+        "image": "https://www.piccolafesta.com/wp-content/uploads/2017/07/quq1-940x920-768x752.jpg",
         "created_at": "2018-04-18T21:09:03.793819Z",
         "modified_at": "2018-04-18T21:09:03.793873Z"
     }
