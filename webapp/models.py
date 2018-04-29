@@ -1,7 +1,10 @@
 from django.db import models
 from PIL import Image
 
+
 class Parents(models.Model):
+    # id = models.IntegerField(primary_key=True)   # 'max_length' is ignored when used with IntegerField
+    DEFAULT_PARENTS = 1
     mother = models.ForeignKey('auth.User', related_name='madre_del_niño', on_delete=models.CASCADE)
     father = models.ForeignKey('auth.User', related_name='padre_del_niño', on_delete=models.CASCADE)
 
@@ -10,7 +13,8 @@ class Parents(models.Model):
 
 
 class Kid(models.Model):
-    parents = models.ForeignKey(Parents, related_name='padre_del_niño', on_delete=models.CASCADE)
+    DEFAULT_KID = 1
+    parents = models.ForeignKey(Parents, related_name='padre_del_niño', on_delete=models.CASCADE, default=Parents.DEFAULT_PARENTS)
     first_name = models.CharField(max_length=20, verbose_name="Nombre")
     last_name = models.CharField(max_length=20, verbose_name="Apellidos")
 
@@ -19,8 +23,7 @@ class Kid(models.Model):
 
 
 class Photo(models.Model):
-    # owner = models.ForeignKey('auth.User', related_name='propietario_de_la_foto', on_delete=models.CASCADE)
-    kids = models.ManyToManyField(Kid)  # on_delete=models.CASCADE)
+    kids = models.ManyToManyField(Kid, default=Kid.DEFAULT_KID)  # on_delete=models.CASCADE)
     title = models.CharField(max_length=60, verbose_name="Título")
     description = models.TextField(blank=True, null=True, verbose_name="Descripción")
     image = models.ImageField(default='photos/generic_baby.jpg', upload_to='photos/', max_length=254)
