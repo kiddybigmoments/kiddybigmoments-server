@@ -75,15 +75,54 @@ Only for GET requests.
 GET, BATCH, POST and DELETE requests for a certain kid.
 
 
-For the time being, user and parents are equivalent.
+For the time being, user and parents are quite similar.
 
-### api/v1/users
+### rest-auth/login
 
-Only for GET requests.
+Fields: username, email, password.
+
+**POST** request.
+
+### rest-auth/logout    
+**POST** request.
+
+### rest-auth/password/reset/ 
+**POST** request.
+
+Fields: email.
+
+### rest-auth/password/change/
+**POST** request.
+
+Fields: new_password1, new_password2, old_password
+
+### rest-auth/user/ 
+**GET**, **PUT** and **PATCH** requests.
+
+Fields: username, first_name, last_name.
+
+Returns pk, username, email, first_name, last_name.
 
 ### api/v1/users/:id
 
 GET, BATCH, POST and DELETE requests for a certain user.
 
-## TBD
+## Registration
+
+
+### rest-auth/registration/
+
+**POST** requests.
+
+Fields: username, password1, password2, email.
+
+### rest-auth/registration/verify-email/
+
+**POST** requests.
+
+Fields: key.
+
+
+
+
 Show only the kids associated to the current user. 
