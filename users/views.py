@@ -4,16 +4,23 @@ from django.contrib.auth import authenticate, login as django_login, logout as d
 from django.contrib.auth.models import User
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
-from rest_framework import status
+from rest_framework import status, permissions, generics
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.authtoken.models import Token
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_jwt.settings import api_settings
+# from rest_framework_jwt.utils import jwt_encode_handler, jwt_payload_handler
 
 from users.forms import SignupForm
 from users.serializers import UsersListSerializer, UserSerializer
+from users.serializers import TokenSerializer
+
+# Get the JWT settings, add these lines after the import/from lines
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 class UsersListAPI(APIView):
@@ -69,10 +76,12 @@ class UserDetailAPI(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class LoginView(APIView):
+class LoginView(generics.CreateAPIView):
 
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    # authentication_classes = (TokenAuthentication,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)  # IsAuthenticated,)
 
     def get(self, request, format=None):
         content = {
@@ -89,32 +98,32 @@ class LoginView(APIView):
                 username = content of the Angular form username
                 raw_password = content of the Angular form password
         """
-
-        authenticated_user = authenticate(username=content.username, password=content.password)
-        if authenticated_user and authenticated_user.is_active:
+        username = request.data.get("username", "")
+        password = request.data.get("password", "")
+        authenticated_user = authenticate(request, username=username, password=password)
+        if authenticated_user is not None:  # and authenticated_user.is_active:
             django_login(request, authenticated_user)
+            serializer = TokenSerializer(data={
+                # using drf jwt utility functions to generate a token
+                "token": jwt_encode_handler(
+                    jwt_payload_handler(authenticated_user)
+            )})
+            serializer.is_valid()
+            return Response(serializer.data)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
             # return redirect('home_page')
-            redirect_to = request.GET.get("next", "home_page")
-            return redirect(redirect_to)
-        else:
-            pass
+            # redirect_to = request.GET.get("next", "home_page")
+            # return redirect(redirect_to)
             # Tell Angular to notify the error "Usuario incorrecto o inactivo"
             # return render(request, "login_form.html", {'form': form})
-        return Response(authenticated_user)
 
 
-class RegisterView(APIView):
+class RegisterView(generics.CreateAPIView):
 
+    queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = (TokenAuthentication,)
-    # permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        content = {
-            'user': unicodedata(request.user),
-            'auth': unicodedata(request.auth)
-        }
-        return Response(content)
+    # authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
         # form = SignupForm(request.POST)
@@ -124,24 +133,43 @@ class RegisterView(APIView):
             username = content of the Angular form username
             raw_password = content of the Angular form password
         """
-        username = request.POST.get("username")   #   request.body.username  # form.get("username")
-        raw_password = request.POST.get("password")
-        print("The username is: " + username + "  " + raw_password)
-        user = User.objects.create_user(username, raw_password)
-        user.set_password(raw_password)
-        user.save()
-        authenticated_user = authenticate(username=username, password=raw_password)
-        django_login(request, authenticated_user)
+        username = request.data.get("username", "")   # request.POST.get("username")
+        raw_password = request.data.get("password", "")
+        print(" ============ The username is: " + username + "  " + raw_password)
+        # user.set_password(raw_password)
+        # user.save()
+        # authenticated_user = authenticate(username=username, password=raw_password)
+        # django_login(request, authenticated_user)
         # return Response(authenticated_user)
         serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # if serializer.is_valid():
+        if not username:
+            return Response(
+                data={
+                    "message": "Debe introducir un nombre de usuario y una contraseña válidos"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            # Tell Angular to redirect to the Home Page for that user
+
+        # Falta considerar el caso de que el nombre ya exista
+
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        # Tell Angular to redirect to the Home Page for that user
+            # serializer.save()
+            new_user = User.objects.create_user(
+                username=username, password=raw_password
+            )
+            return Response(
+                # data=serializer(new_user).data,
+                data={
+                    'username': username,
+                    'password': raw_password
+                },
+                status=status.HTTP_201_CREATED
+            )
 
 
 def logout(request):
     django_logout(request)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
     # Tell Angular to redirect to the login page

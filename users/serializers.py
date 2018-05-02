@@ -29,6 +29,13 @@ class BlogsListSerializer(serializers.ModelSerializer):
 """
 
 
+class TokenSerializer(serializers.Serializer):
+    """
+    This serializer serializes the token data
+    """
+    token = serializers.CharField(max_length=255)
+
+
 class UsersListSerializer(serializers.Serializer):
     # Actúa como un traductor de objetos a tipos primitivos (lo contrario a lo que hace un formulario)
     id = serializers.ReadOnlyField()
@@ -36,14 +43,19 @@ class UsersListSerializer(serializers.Serializer):
     # last_name = serializers.CharField()
 
 
-class UserSerializer(UsersListSerializer):
+class UserSerializer(serializers.Serializer):
+    class Meta:
+        model = User
+        fields = ("username", "password")
 
+    """    
     id = serializers.ReadOnlyField()
     # first_name = serializers.CharField()
     # last_name = serializers.CharField()
     username = serializers.CharField()
     # email = serializers.EmailField()
     password = serializers.CharField()
+    """
 
     def validate_username(self, data):
         pass
