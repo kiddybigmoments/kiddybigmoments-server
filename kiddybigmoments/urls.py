@@ -11,7 +11,7 @@ from django.conf.urls.static import static
 from rest_framework_jwt.views import obtain_jwt_token
 
 from kiddybigmoments import settings
-from users.views import logout, SignupView
+from users.views import logout, RegisterView
 from webapp.views import ListKidsView, ListPhotosView, KidsDetailView, PhotosDetailView, ListParentsView, \
     ParentsDetailView, UsersDetailView, ListUsersView
 from webapp.views import LoginView, RegisterUsersView
@@ -21,7 +21,7 @@ urlpatterns = [
 
     path('api/v1/login', LoginView.as_view(), name="api-login"),
     path('api/v1/logout', logout, name="api-logout"),
-    path('api/v1/register', SignupView.as_view(), name="api-register"),
+    path('api/v1/register', RegisterView.as_view(), name="api-register"),
 
     path('api/v1/users', ListUsersView.as_view(), name="api-users-list"),
     path('api/v1/users/<int:pk>', UsersDetailView.as_view(), name="api-users-detail"),

@@ -72,9 +72,9 @@ class UserDetailAPI(APIView):
 class LoginView(APIView):
 
     authentication_classes = (TokenAuthentication,)
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
+    def get(self, request, format=None):
         content = {
             'user': unicodedata(request.user),
             'auth': unicodedata(request.auth)  # "unicode" in the official DRF Guide
@@ -103,7 +103,7 @@ class LoginView(APIView):
         return Response(authenticated_user)
 
 
-class SignupView(APIView):  # Registering ApiView
+class RegisterView(APIView):
 
     serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication,)
@@ -124,13 +124,24 @@ class SignupView(APIView):  # Registering ApiView
             username = content of the Angular form username
             raw_password = content of the Angular form password
         """
-        username = request.body.username  # form.get("username")
-        raw_password = request.data.password
+        username = request.POST.get("username")   #   request.body.username  # form.get("username")
+        raw_password = request.POST.get("password")
+        print("The username is: " + username + "  " + raw_password)
+        user = User.objects.create_user(username, raw_password)
+        user.set_password(raw_password)
+        user.save()
         authenticated_user = authenticate(username=username, password=raw_password)
         django_login(request, authenticated_user)
-        # return redirect('home_page')
+        # return Response(authenticated_user)
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Tell Angular to redirect to the Home Page for that user
 
 
 def logout(request):
     django_logout(request)
-    # return redirect('login_page')
+    # Tell Angular to redirect to the login page

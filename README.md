@@ -77,52 +77,19 @@ GET, BATCH, POST and DELETE requests for a certain kid.
 
 For the time being, user and parents are quite similar.
 
-### rest-auth/login
+### api/v1/register
 
-Fields: username, email, password.
+Fields: username, password.
 
 **POST** request.
 
-### rest-auth/logout    
+### api/v1/login    
+
+Fields: username, password.
+
 **POST** request.
 
-### rest-auth/password/reset/ 
+### api/v1/logout 
 **POST** request.
 
-Fields: email.
-
-### rest-auth/password/change/
-**POST** request.
-
-Fields: new_password1, new_password2, old_password
-
-### rest-auth/user/ 
-**GET**, **PUT** and **PATCH** requests.
-
-Fields: username, first_name, last_name.
-
-Returns pk, username, email, first_name, last_name.
-
-### api/v1/users/:id
-
-GET, BATCH, POST and DELETE requests for a certain user.
-
-## Registration
-
-
-### rest-auth/registration/
-
-**POST** requests.
-
-Fields: username, password1, password2, email.
-
-### rest-auth/registration/verify-email/
-
-**POST** requests.
-
-Fields: key.
-
-
-
-
-Show only the kids associated to the current user. 
+Fields: none.
