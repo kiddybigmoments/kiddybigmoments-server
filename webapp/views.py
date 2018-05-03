@@ -21,11 +21,36 @@ class ListKidsView(generics.ListCreateAPIView):
 
 
 class KidsDetailView(generics.RetrieveUpdateDestroyAPIView):
-    def get_object(self):
-        queryset = Kid.objects.all()
-        obj = get_object_or_404(queryset)
-        serializer_class = KidSerializer
-        return obj
+    queryset = Kid.objects.all()
+    serializer_class = KidSerializer
+
+    def get(self, request, *args, **kwargs):
+        try:
+            kid = self.queryset.get(pk=kwargs["pk"])
+            return Response(KidSerializer(kid).data)
+        except Kid.DoesNotExist:
+            return Response(
+                data={
+                    "message": "Kid with id {} does not exist".format(kwargs["pk"])
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+    # @validate_request_data
+    # Source: https://github.com/kasulani/drf_tutorial/
+    def put(self, request, *args, **kwargs):
+        try:
+            kid = self.queryset.get(pk=kwargs["pk"])
+            serializer = KidSerializer()
+            updated_kid = serializer.update(kid, request.data)
+            return Response(KidSerializer(updated_kid).data)
+        except Kid.DoesNotExist:
+            return Response(
+                data={
+                    "message": "Kid with id {} does not exist".format(kwargs["pk"])
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
 
 
 class ListPhotosView(generics.ListCreateAPIView):

@@ -16,7 +16,7 @@ from rest_framework_jwt.settings import api_settings
 
 from users.forms import SignupForm
 from users.serializers import UsersListSerializer, UserSerializer
-from users.serializers import TokenSerializer
+from webapp.serializers import TokenSerializer
 
 # Get the JWT settings, add these lines after the import/from lines
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -79,19 +79,20 @@ class UserDetailAPI(APIView):
 class LoginView(generics.CreateAPIView):
 
     # authentication_classes = (TokenAuthentication,)
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    # serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny,)  # IsAuthenticated,)
 
-    def get(self, request, format=None):
-        content = {
-            'user': unicodedata(request.user),
-            'auth': unicodedata(request.auth)  # "unicode" in the official DRF Guide
-        }
-        return Response(content)
+    queryset = User.objects.all()
 
-    def post(self, request):
-        content = request.POST.get()
+    """
+    def jwt_response_payload_handler(self, token, user=None, request=None):
+        return {
+            'token': token,
+            'user': UserSerializer(user, context={'request': request}).data
+        }
+    """
+
+    def post(self, request, *args, **kwargs):
         """
             if Angular login form data are valid():
                 Retrieve Angular form fields and tell Angular to clean its form fields
@@ -107,7 +108,7 @@ class LoginView(generics.CreateAPIView):
                 # using drf jwt utility functions to generate a token
                 "token": jwt_encode_handler(
                     jwt_payload_handler(authenticated_user)
-            )})
+                )})
             serializer.is_valid()
             return Response(serializer.data)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
