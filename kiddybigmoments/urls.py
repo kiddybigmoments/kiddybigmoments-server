@@ -18,6 +18,7 @@ from webapp.views import LoginView, RegisterUsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/token-auth/', obtain_jwt_token, name='create-token'),
 
     path('api/v1/login/', LoginView.as_view(), name="api-login"),
     path('api/v1/logout/', logout, name="api-logout"),

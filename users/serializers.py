@@ -29,13 +29,6 @@ class BlogsListSerializer(serializers.ModelSerializer):
 """
 
 
-class TokenSerializer(serializers.Serializer):
-    """
-    This serializer serializes the token data
-    """
-    token = serializers.CharField(max_length=255)
-
-
 class UsersListSerializer(serializers.Serializer):
     # Actúa como un traductor de objetos a tipos primitivos (lo contrario a lo que hace un formulario)
     id = serializers.ReadOnlyField()
