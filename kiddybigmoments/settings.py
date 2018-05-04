@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'rest_framework',
     #
     'corsheaders'
+    'users',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 REST_FRAMEWORK = {
@@ -56,13 +59,14 @@ REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
     # Authentication settings
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+     'rest_framework.authentication.SessionAuthentication',
+     'rest_framework.authentication.BasicAuthentication',
     ],
-    # Permission settings
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'    # IsAuthenticate
+        'rest_framework.permissions.IsAuthenticated'
     ],
-
+    
 }
 
 # JWT settings
@@ -187,6 +191,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -194,3 +199,11 @@ MEDIA_URL = '/media/'
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200'
 )
+
+LOGIN_URL = "/login"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5
+}
+

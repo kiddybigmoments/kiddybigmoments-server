@@ -75,15 +75,21 @@ Only for GET requests.
 GET, BATCH, POST and DELETE requests for a certain kid.
 
 
-For the time being, user and parents are equivalent.
+For the time being, user and parents are quite similar.
 
-### api/v1/users
+### api/v1/register
 
-Only for GET requests.
+Fields: username, password.
 
-### api/v1/users/:id
+**POST** request.
 
-GET, BATCH, POST and DELETE requests for a certain user.
+### api/v1/login    
 
-## TBD
-Show only the kids associated to the current user. 
+Fields: username, password.
+
+**POST** request.
+
+### api/v1/logout 
+**POST** request.
+
+Fields: none.
