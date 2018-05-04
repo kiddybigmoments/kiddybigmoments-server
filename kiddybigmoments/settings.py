@@ -46,10 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp',
     'rest_framework',
-    #
-    'corsheaders'
+    'corsheaders',
     'users',
-    'rest_framework',
     'rest_framework.authtoken'
 ]
 
@@ -195,10 +193,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-#
-CORS_ORIGIN_WHITELIST = (
-    'localhost:4200'
-)
+CORS_ORIGIN_ALLOW_ALL= True
 
 LOGIN_URL = "/login"
 
