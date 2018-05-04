@@ -52,44 +52,59 @@ All the endpoints require authentication, except the login request.
 
 ## Existing endpoints
 
-### api-token-auth
-Not functional yet.
-
-### auth/login
-Not functional yet.
-
-### api/v1/photos
+### api/v1/photos/
 
 Only for GET requests.
 
-### api/v1/photos/:id
+### api/v1/photos/:id/
 
 GET, BATCH, POST and DELETE requests for a certain photo.
 
-### api/v1/kids
+### api/v1/parents/
 
 Only for GET requests.
 
-### api/v1/kids/:id
+### api/v1/parents/:id/
+
+GET, BATCH, POST and DELETE requests for a certain parent.
+
+### api/v1/kids/
+
+Only for GET requests.
+
+### api/v1/kids/:id/
 
 GET, BATCH, POST and DELETE requests for a certain kid.
 
 
-For the time being, user and parents are quite similar.
 
-### api/v1/register
-
-Fields: username, password.
-
-**POST** request.
-
-### api/v1/login    
+### api/v1/register/
 
 Fields: username, password.
 
 **POST** request.
 
-### api/v1/logout 
+### api/v1/token-auth/
+
+Fields: username, password.
+
+Returns a JWT token. 
+
+**POST** request.
+
+
+### api/v1/login/    
+
+Fields: username, password.
+
+**POST** request.
+
+Not working yet.
+
+### api/v1/logout/ 
+
 **POST** request.
 
 Fields: none.
+
+Not working yet.
