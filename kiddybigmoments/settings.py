@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp',
     'rest_framework',
+    #
     'corsheaders'
 ]
 
@@ -102,6 +103,7 @@ JWT_AUTH = {
 
 
 MIDDLEWARE = [
+    #
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
