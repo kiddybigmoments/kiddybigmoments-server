@@ -39,23 +39,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-       'console': {
-            'class': 'logging.StreamHandler',
-       },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -228,6 +211,4 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5
 }
 
-
-if DEBUG is False:
-    django_heroku.settings(locals())
+django_heroku.settings(locals())
