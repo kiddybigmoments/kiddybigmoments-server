@@ -32,9 +32,6 @@ if DEBUG is None or DEBUG is "True":
 else:
     DEBUG = False
 
-if DEBUG is False:
-    django_heroku.settings(locals())
-
 ALLOWED_HOSTS = [
     'kiddybigmoments-server.herokuapp.com',
     'api.kiddybigmoments.site',
@@ -232,3 +229,5 @@ REST_FRAMEWORK = {
 }
 
 
+if DEBUG is False:
+    django_heroku.settings(locals())
