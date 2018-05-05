@@ -26,8 +26,10 @@ SECRET_KEY = '5911rm-7p89p57z0j#sk81%$e=sea-a2sx+0+25=5m8@*zolbf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
-if DEBUG is None:
+if DEBUG is None or DEBUG is "True":
     DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = [
     'kiddybigmoments-server.herokuapp.com',
