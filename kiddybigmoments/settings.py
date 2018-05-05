@@ -25,7 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5911rm-7p89p57z0j#sk81%$e=sea-a2sx+0+25=5m8@*zolbf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True     # Django does not serve any static or media files when DEBUG = False
+DEBUG = os.environ.get('DEBUG')
+if DEBUG is None:
+    DEBUG = True
 
 ALLOWED_HOSTS = [
     'kiddybigmoments-server.herokuapp.com',
@@ -47,8 +49,14 @@ INSTALLED_APPS = [
     'webapp',
     'users',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = DEBUG
+CORS_ORIGIN_WHITELIST = (
+    'https://kiddybigmoments.site',
+)
 
 REST_FRAMEWORK = {
     # When you enable API versioning, the request.version attribute will contain a string
@@ -63,7 +71,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ],
-    
+
 }
 
 # JWT settings
@@ -111,6 +119,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'kiddybigmoments.urls'
@@ -160,8 +170,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    }, 
-    
+    },
+
 ]
 """
 
@@ -195,4 +205,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5
 }
+
 

@@ -8,3 +8,4 @@ PyJWT==1.6.1
 pytz==2018.4
 rest-framework-auth0==0.4.6
 six==1.11.0
+django-cors-headers
