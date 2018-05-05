@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
+    'rest_framework',
+    'corsheaders',
     'users',
     'rest_framework',
     'rest_framework.authtoken',
@@ -112,6 +114,9 @@ JWT_AUTH = {
 
 
 MIDDLEWARE = [
+    #
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -198,6 +203,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+CORS_ORIGIN_ALLOW_ALL= True
 
 LOGIN_URL = "/login"
 
