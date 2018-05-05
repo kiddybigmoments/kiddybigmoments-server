@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import datetime
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -31,12 +32,31 @@ if DEBUG is None or DEBUG is "True":
 else:
     DEBUG = False
 
+if DEBUG is False:
+    django_heroku.settings(locals())
+
 ALLOWED_HOSTS = [
     'kiddybigmoments-server.herokuapp.com',
     'api.kiddybigmoments.site',
     'localhost',
     '127.0.0.1'
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+       'console': {
+            'class': 'logging.StreamHandler',
+       },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
 
 
 # Application definition
