@@ -2,7 +2,6 @@ import unicodedata
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.models import User
-from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import status, permissions, generics
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
@@ -11,21 +10,18 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_jwt.settings import api_settings
-# from rest_framework_jwt.utils import jwt_encode_handler, jwt_payload_handler
+# from rest_framework_jwt.settings import api_settings
 
 from users.forms import SignupForm
 from users.serializers import UsersListSerializer, UserSerializer
-from webapp.serializers import TokenSerializer
-
-# Get the JWT settings, add these lines after the import/from lines
-jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
-class UsersListAPI(APIView):
+# class ListUsersView(APIView):
+class ListUsersView(generics.ListAPIView):
 
-    # permission_classes = [UsersPermission]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
 
     def get(self, request):
         users = User.objects.all()   # users es un objeto que hay que convertir al formato de salida
@@ -33,6 +29,7 @@ class UsersListAPI(APIView):
         # El serializador obtiene un diccionario por cada usuario de la lista
         return Response(serializer.data)
 
+    """
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -40,10 +37,13 @@ class UsersListAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    """
 
 
-class UserDetailAPI(APIView):
+class UsersDetailView(APIView):
 
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     # permission_classes = [UsersPermission]
 
     def get(self, request, pk):
@@ -76,12 +76,6 @@ class UserDetailAPI(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class LoginView(generics.CreateAPIView):
-
-    # authentication_classes = (TokenAuthentication,)
-    # serializer_class = UserSerializer
-    permission_classes = (permissions.AllowAny,)  # IsAuthenticated,)
-
     queryset = User.objects.all()
 
     """
@@ -110,6 +104,7 @@ class LoginView(generics.CreateAPIView):
                     jwt_payload_handler(authenticated_user)
                 )})
             serializer.is_valid()
+            django_login(request, authenticated_user)
             return Response(serializer.data)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
             # return redirect('home_page')
@@ -160,6 +155,7 @@ class RegisterView(generics.CreateAPIView):
             new_user = User.objects.create_user(
                 username=username, password=raw_password
             )
+            new_user.save()
             return Response(
                 # data=serializer(new_user).data,
                 data={
@@ -170,7 +166,14 @@ class RegisterView(generics.CreateAPIView):
             )
 
 
-def logout(request):
-    django_logout(request)
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
-    # Tell Angular to redirect to the login page
+"""
+class LogoutView(generics.CreateAPIView):
+
+    queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        django_logout(request)
+        return Response(status=status.HTTP_200_OK)
+        # Tell Angular to redirect to the login page
+"""
