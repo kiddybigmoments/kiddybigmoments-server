@@ -20,12 +20,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/v1/login/', LoginView.as_view(), name="api-login"),
-    path('api/v1/logout/', logout, name="api-logout"),
     path('api/v1/register/', RegisterView.as_view(), name="api-register"),
 
     path('api/v1/users/', ListUsersView.as_view(), name="api-users-list"),
     path('api/v1/users/<int:pk>/', UsersDetailView.as_view(), name="api-users-detail"),
     # path('rest-auth/', include('rest_auth.urls'))
+    path (r'^rest-auth/', include('rest_auth.urls')),
+#url(r'^rest-auth/', include('rest_auth.urls'))
 
     path('api/v1/photos/', ListPhotosView.as_view(), name="api-photos-list"),
     path('api/v1/photos/<int:pk>/', PhotosDetailView.as_view(), name="api-photos-detail"),

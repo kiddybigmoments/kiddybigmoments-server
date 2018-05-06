@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'webapp',
     'users',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'rest_auth'
 ]
 
 REST_FRAMEWORK = {
@@ -193,4 +194,4 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5
 }
-
+REST_USE_JWT = True
