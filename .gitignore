@@ -9,7 +9,4 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# pictures from db
-media/photos/*
-
 env

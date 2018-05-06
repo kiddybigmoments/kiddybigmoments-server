@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'rest_framework.authtoken',
+    'db_file_storage',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = DEBUG
@@ -75,6 +76,11 @@ REST_FRAMEWORK = {
     ],
 
 }
+
+
+# Database file storage
+DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
+
 
 # JWT settings
 JWT_AUTH = {

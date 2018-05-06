@@ -20,6 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/token-auth/', obtain_jwt_token, name='create-token'),
 
+    path('files/', include('db_file_storage.urls')),
+
     path('api/v1/login/', LoginView.as_view(), name="api-login"),
     path('api/v1/logout/', logout, name="api-logout"),
     path('api/v1/register/', RegisterView.as_view(), name="api-register"),
@@ -34,8 +36,8 @@ urlpatterns = [
     path('api/v1/kids/<int:pk>/', KidsDetailView.as_view(), name="api-kids-detail"),
     path('api/v1/parents/', ListParentsView.as_view(), name="api-parents-list"),
     path('api/v1/parents/<int:pk>/', ParentsDetailView.as_view(), name="api-parents-detail"),
-
 ]
+
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
