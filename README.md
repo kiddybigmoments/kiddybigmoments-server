@@ -77,34 +77,30 @@ Only for GET requests.
 GET, BATCH, POST and DELETE requests for a certain kid.
 
 
-
 ### api/v1/register/
 
 Fields: username, password.
 
 **POST** request.
 
-### api/v1/token-auth/
+### api/v1/get-token/
 
 Fields: username, password.
 
-Returns a JWT token. 
+Returns two JWT tokens: called access and refresh. 
 
 **POST** request.
 
+### api/v1/refresh-token/
 
-### api/v1/login/    
-
-Fields: username, password.
-
-**POST** request.
-
-Not working yet.
-
-### api/v1/logout/ 
+Refresh the token for registered user.
 
 **POST** request.
 
-Fields: none.
+More information on the library used for generating the JWT token can be found here: 
+https://github.com/davesque/django-rest-framework-simplejwt#README.md
+ 
 
-Not working yet.
+=============================================================
+
+**NOTE**: login and logout are client endpoints, but not API endpoints.
