@@ -4,13 +4,6 @@ from rest_framework import serializers
 from webapp.models import Photo, Kid, Parents
 
 
-class TokenSerializer(serializers.Serializer):
-    """
-    This serializer serializes the token data
-    """
-    token = serializers.CharField(max_length=255)
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
