@@ -49,20 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.sites'
 ]
 
-REST_FRAMEWORK = {
-    # When you enable API versioning, the request.version attribute will contain a string
-    # that corresponds to the version requested in the incoming client request.
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
-    # Authentication settings
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
-    ],
-    
-}
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
