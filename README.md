@@ -108,3 +108,6 @@ Not working yet.
 Fields: none.
 
 Not working yet.
+
+
+**NOTE**: a feature can be tested without using authentication, by changing the line `rest_framework.permissions.IsAuthenticated` to `rest_framework.permissions.AllowAny` in the file `settings.py`
