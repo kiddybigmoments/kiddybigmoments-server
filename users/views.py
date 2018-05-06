@@ -151,11 +151,11 @@ class RegisterView(generics.CreateAPIView):
         # Falta considerar el caso de que el nombre ya exista
 
         else:
-            # serializer.save()
             new_user = User.objects.create_user(
                 username=username, password=raw_password
             )
-            new_user.save()
+            serializer.save()
+            # new_user.save()
             return Response(
                 # data=serializer(new_user).data,
                 data={
@@ -165,15 +165,3 @@ class RegisterView(generics.CreateAPIView):
                 status=status.HTTP_201_CREATED
             )
 
-
-"""
-class LogoutView(generics.CreateAPIView):
-
-    queryset = User.objects.all()
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request):
-        django_logout(request)
-        return Response(status=status.HTTP_200_OK)
-        # Tell Angular to redirect to the login page
-"""

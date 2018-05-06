@@ -104,3 +104,6 @@ https://github.com/davesque/django-rest-framework-simplejwt#README.md
 =============================================================
 
 **NOTE**: login and logout are client endpoints, but not API endpoints.
+
+**NOTE 2**: a feature can be tested without using authentication, by changing the line 
+`rest_framework.permissions.IsAuthenticated` to `rest_framework.permissions.AllowAny` in the file `settings.py`  
