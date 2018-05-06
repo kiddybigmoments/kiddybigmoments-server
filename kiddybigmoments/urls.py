@@ -19,8 +19,15 @@ from webapp.views import ListKidsView, ListPhotosView, KidsDetailView, PhotosDet
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+<<<<<<< HEAD
     path('api/v1/get-token/', TokenObtainPairView.as_view(), name="api-get-token"),
     path('api/v1/refresh-token/', TokenRefreshView.as_view(), name="api-refresh-token"),
+=======
+    path('files/', include('db_file_storage.urls')),
+
+    path('api/v1/login/', LoginView.as_view(), name="api-login"),
+    path('api/v1/logout/', logout, name="api-logout"),
+>>>>>>> 793680f2b3bf9b1f3742685a5c5999b2ce20e647
     path('api/v1/register/', RegisterView.as_view(), name="api-register"),
     # path('api/v1/logout/', LogoutView.as_view(), name="api-logout"),
 
@@ -33,8 +40,8 @@ urlpatterns = [
     path('api/v1/kids/<int:pk>/', KidsDetailView.as_view(), name="api-kids-detail"),
     path('api/v1/parents/', ListParentsView.as_view(), name="api-parents-list"),
     path('api/v1/parents/<int:pk>/', ParentsDetailView.as_view(), name="api-parents-detail"),
-
 ]
+
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

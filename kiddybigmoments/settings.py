@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import datetime
 
+import datetime as datetime
+import django_heroku
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # from rest_framework_simplejwt import settings
 
@@ -24,7 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5911rm-7p89p57z0j#sk81%$e=sea-a2sx+0+25=5m8@*zolbf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True     # Django does not serve any static or media files when DEBUG = False
+DEBUG = os.environ.get('DEBUG')
+if DEBUG is None or DEBUG is "True":
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = [
     'kiddybigmoments-server.herokuapp.com',
@@ -43,10 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
-    'rest_framework',
     'corsheaders',
     'users',
-    'django.contrib.sites'
+    'rest_framework',
+    'django.contrib.sites',
+    'db_file_storage',
 ]
 
 SIMPLE_JWT = {
@@ -54,22 +62,27 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
-
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
     'VERIFYING_KEY': None,
-
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
-
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': datetime.timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=1),
 }
+
+CORS_ORIGIN_ALLOW_ALL = DEBUG
+CORS_ORIGIN_WHITELIST = (
+    'https://kiddybigmoments.site',
+)
+
+
+# Database file storage
+DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
 
 
 MIDDLEWARE = [
@@ -82,6 +95,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'kiddybigmoments.urls'
@@ -131,8 +146,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    }, 
-    
+    },
+
 ]
 """
 
@@ -177,4 +192,4 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 5
 }
 
-
+django_heroku.settings(locals())
