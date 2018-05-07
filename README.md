@@ -20,35 +20,17 @@ The Photo object has the following fields:
         "kids": [
             {
                 "id": 1,
-                "parents": {
-                    "id": 1,
-                    "mother": "pepita",
-                    "father": "pepito"
-                },
-                "first_name": "Juanitoooo",
-                "last_name": "López"
+                "name": "Juanito",
             }
         ],
         "title": "Foto 2",
-        "description": "Esto es la foto del bautizo de Matías.",
+        "description": "Esto es la foto del bautizo de Juan.",
         "image": "photos/baby.jpg",
         "created_at": "2018-04-18T21:09:03.793819Z",
         "modified_at": "2018-04-18T21:09:03.793873Z"
     }
 
 ```
-
-The Parents object is the following:
-
-```
-{
-        "id": 1,
-        "mother": "pepita",
-        "father": "pepito"
-}
-```
-
-All the endpoints require authentication, except the login request.
 
 ## Existing endpoints
 
@@ -73,6 +55,8 @@ GET, BATCH, POST and DELETE requests for a certain kid.
 
 Fields: username, password1, password2.
 
+A session key is returned.
+
 **POST** request.
 
 ### rest-auth/login/
@@ -88,6 +72,8 @@ A session key is returned.
 Fields: none.
 
 **POST** request.
+
+All the endpoints require authentication, except the login and the registration ones.
 
 More information on the library used for login, logout and register can be found here: 
 https://django-rest-auth.readthedocs.io/en/latest/api_endpoints.html
