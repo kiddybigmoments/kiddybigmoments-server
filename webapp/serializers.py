@@ -4,13 +4,6 @@ from rest_framework import serializers
 from webapp.models import Photo, Kid, Parents
 
 
-class TokenSerializer(serializers.Serializer):
-    """
-    This serializer serializes the token data
-    """
-    token = serializers.CharField(max_length=255)
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -20,12 +13,14 @@ class UserSerializer(serializers.ModelSerializer):
 class ParentsSerializer(serializers.ModelSerializer):
     # kids = serializers.PrimaryKeyRelatedField(many=True, queryset=Kid.objects.all)
     id = serializers.IntegerField()
+    """
     mother = serializers.ReadOnlyField(source='mother.username')
     father = serializers.ReadOnlyField(source='father.username')
 
     class Meta:
         model = Parents
         fields = '__all__'
+    """
 
 
 class KidSerializer(serializers.ModelSerializer):

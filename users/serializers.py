@@ -1,32 +1,8 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.urls import reverse
 
-"""
-class BlogsListSerializer(serializers.ModelSerializer):
-
-    url = serializers.SerializerMethodField('build_blog_url')
-    name = serializers.SerializerMethodField('build_blog_name')
-    author = serializers.SerializerMethodField('build_blog_author')
-
-    def build_blog_author(self, instance):
-        return instance.first_name + " " + instance.last_name
-
-    def build_blog_name(self, username):
-        return 'Blog de ' + str(username)
-
-    # def build_blog_url(self, obj):
-    def build_blog_url(self, username):
-        # return reverse('user_posts_page', kwargs={'username': str(username)})
-        # return reverse('user_posts_page', kwargs={'username': obj.username})
-        return '/blogs/' + str(username)
-        # return reverse('user_posts_page', kwargs={'username': 'jose'})  # This works !!
-
-    class Meta:
-        model = User
-        fields = ['name', 'author', 'url']
-"""
+from users import models
 
 
 class UsersListSerializer(serializers.Serializer):
@@ -36,10 +12,10 @@ class UsersListSerializer(serializers.Serializer):
     # last_name = serializers.CharField()
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ("username", "password")
+        model = models.CustomUser
+        fields = ("email", "username")
 
     """    
     id = serializers.ReadOnlyField()
@@ -62,7 +38,7 @@ class UserSerializer(serializers.Serializer):
         """
 
     def create(self, validated_data):  # Construye un objeto User
-        instance = User()
+        instance = CustomUser()
         return self.update(instance, validated_data)
 
     def update(self, instance, validated_data):

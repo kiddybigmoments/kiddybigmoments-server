@@ -60,14 +60,6 @@ Only for GET requests.
 
 GET, BATCH, POST and DELETE requests for a certain photo.
 
-### api/v1/parents/
-
-Only for GET requests.
-
-### api/v1/parents/:id/
-
-GET, BATCH, POST and DELETE requests for a certain parent.
-
 ### api/v1/kids/
 
 Only for GET requests.
@@ -77,33 +69,31 @@ Only for GET requests.
 GET, BATCH, POST and DELETE requests for a certain kid.
 
 
-### api/v1/register/
+### rest-auth/registration/
+
+Fields: username, password1, password2.
+
+**POST** request.
+
+### rest-auth/login/
 
 Fields: username, password.
 
-**POST** request.
-
-### api/v1/get-token/
-
-Fields: username, password.
-
-Returns two JWT tokens: called access and refresh. 
+A session key is returned.
 
 **POST** request.
 
-### api/v1/refresh-token/
+### rest-auth/logout/
 
-Refresh the token for registered user.
+Fields: none.
 
 **POST** request.
 
-More information on the library used for generating the JWT token can be found here: 
-https://github.com/davesque/django-rest-framework-simplejwt#README.md
+More information on the library used for login, logout and register can be found here: 
+https://django-rest-auth.readthedocs.io/en/latest/api_endpoints.html
  
 
 =============================================================
 
-**NOTE**: login and logout are client endpoints, but not API endpoints.
-
-**NOTE 2**: a feature can be tested without using authentication, by changing the line 
+**NOTE**: a feature can be tested without using authentication, by changing the line 
 `rest_framework.permissions.IsAuthenticated` to `rest_framework.permissions.AllowAny` in the file `settings.py`  

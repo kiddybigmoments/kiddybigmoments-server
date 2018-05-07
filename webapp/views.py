@@ -1,5 +1,3 @@
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
 from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
@@ -59,13 +57,8 @@ class PhotosDetailView(generics.RetrieveUpdateDestroyAPIView):
     parser_classes = (FileUploadParser,)
 
 
-class ListParentsView(generics.ListCreateAPIView):
-    queryset = Parents.objects.all()
-    serializer_class = ParentsSerializer
-
-    #def perform_create(self, serializer):
+    # def perform_create(self, serializer):
     #    serializer.save(parents=self.request.user.username)
-
 
 class ParentsDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Parents.objects.all()

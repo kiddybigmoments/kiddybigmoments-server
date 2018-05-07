@@ -1,25 +1,26 @@
 from django.db import models
 from db_file_storage.model_utils import delete_file, delete_file_if_needed
+from users.models import CustomUser
 
 
 class Parents(models.Model):
     # id = models.IntegerField(primary_key=True)   # 'max_length' is ignored when used with IntegerField
     DEFAULT_PARENTS = 1
-    mother = models.ForeignKey('auth.User', related_name='madre_del_niño', on_delete=models.CASCADE)
-    father = models.ForeignKey('auth.User', related_name='padre_del_niño', on_delete=models.CASCADE)
+    """
+    mother = models.ForeignKey('auth.CustomUser', related_name='madre_del_niño', on_delete=models.CASCADE)
+    father = models.ForeignKey('auth.CustomUser', related_name='padre_del_niño', on_delete=models.CASCADE)
 
     def __str__(self):
         return "Madre: {}. Padre: {}".format(self.mother.username, self.father.username)
+    """
 
 
 class Kid(models.Model):
     DEFAULT_KID = 1
-    parents = models.ForeignKey(Parents, related_name='padre_del_niño', on_delete=models.CASCADE, default=Parents.DEFAULT_PARENTS)
-    first_name = models.CharField(max_length=20, verbose_name="Nombre")
-    last_name = models.CharField(max_length=20, verbose_name="Apellidos")
+    name = models.CharField(max_length=20, verbose_name="Nombre")
 
     def __str__(self):
-        return "{} {}".format(self.first_name, self.last_name)
+        return "{}".format(self.first_name)
 
 
 class Photo(models.Model):
