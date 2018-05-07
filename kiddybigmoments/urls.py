@@ -23,8 +23,8 @@ urlpatterns = [
 
     # path('api/v1/', include('users.urls')),
 
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('api/v1/rest-auth/', include('rest_auth.urls')),
+    path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
 
     path('api/v1/users/', ListUsersView.as_view(), name="api-users-list"),
     path('api/v1/users/<int:pk>/', UsersDetailView.as_view(), name="api-users-detail"),
