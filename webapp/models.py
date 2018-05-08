@@ -1,18 +1,5 @@
 from django.db import models
 from db_file_storage.model_utils import delete_file, delete_file_if_needed
-from users.models import CustomUser
-
-
-class Parents(models.Model):
-    # id = models.IntegerField(primary_key=True)   # 'max_length' is ignored when used with IntegerField
-    DEFAULT_PARENTS = 1
-    """
-    mother = models.ForeignKey('auth.CustomUser', related_name='madre_del_niño', on_delete=models.CASCADE)
-    father = models.ForeignKey('auth.CustomUser', related_name='padre_del_niño', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "Madre: {}. Padre: {}".format(self.mother.username, self.father.username)
-    """
 
 
 class Kid(models.Model):

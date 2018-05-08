@@ -68,7 +68,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
 
-AUTH_USER_MODEL = 'users.CustomUser'
+#  AUTH_USER_MODEL = 'users.User'
 
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 CORS_ORIGIN_WHITELIST = (

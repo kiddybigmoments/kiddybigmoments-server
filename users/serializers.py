@@ -1,8 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.urls import reverse
-
-from users import models
 
 
 class UsersListSerializer(serializers.Serializer):
@@ -14,8 +13,8 @@ class UsersListSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.CustomUser
-        fields = ("email", "username")
+        model = User
+        fields = ("id", "email", "username")
 
     """    
     id = serializers.ReadOnlyField()
@@ -38,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
 
     def create(self, validated_data):  # Construye un objeto User
-        instance = CustomUser()
+        instance = User()
         return self.update(instance, validated_data)
 
     def update(self, instance, validated_data):

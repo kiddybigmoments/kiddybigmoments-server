@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from webapp.models import Photo, Kid, Parents
+from webapp.models import Photo, Kid
 
 
 class UserSerializer(serializers.ModelSerializer):
