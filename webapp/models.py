@@ -7,7 +7,7 @@ class Kid(models.Model):
     name = models.CharField(max_length=20, verbose_name="Nombre")
 
     def __str__(self):
-        return "{}".format(self.first_name)
+        return "{}".format(self.name)
 
 
 class Photo(models.Model):
@@ -20,7 +20,7 @@ class Photo(models.Model):
     modified_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "Foto llamada " + self.title
+        return "Foto llamada {}".format(self.title)
 
     def save(self, *args, **kwargs):
         delete_file_if_needed(self, 'image')
