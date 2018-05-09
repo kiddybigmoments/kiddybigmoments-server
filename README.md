@@ -20,35 +20,17 @@ The Photo object has the following fields:
         "kids": [
             {
                 "id": 1,
-                "parents": {
-                    "id": 1,
-                    "mother": "pepita",
-                    "father": "pepito"
-                },
-                "first_name": "Juanitoooo",
-                "last_name": "López"
+                "name": "Juanito",
             }
         ],
         "title": "Foto 2",
-        "description": "Esto es la foto del bautizo de Matías.",
+        "description": "Esto es la foto del bautizo de Juan.",
         "image": "photos/baby.jpg",
         "created_at": "2018-04-18T21:09:03.793819Z",
         "modified_at": "2018-04-18T21:09:03.793873Z"
     }
 
 ```
-
-The Parents object is the following:
-
-```
-{
-        "id": 1,
-        "mother": "pepita",
-        "father": "pepito"
-}
-```
-
-All the endpoints require authentication, except the login request.
 
 ## Existing endpoints
 
@@ -60,14 +42,6 @@ Only for GET requests.
 
 GET, BATCH, POST and DELETE requests for a certain photo.
 
-### api/v1/parents/
-
-Only for GET requests.
-
-### api/v1/parents/:id/
-
-GET, BATCH, POST and DELETE requests for a certain parent.
-
 ### api/v1/kids/
 
 Only for GET requests.
@@ -77,37 +51,35 @@ Only for GET requests.
 GET, BATCH, POST and DELETE requests for a certain kid.
 
 
+### rest-auth/registration/
 
-### api/v1/register/
+Fields: username, password1, password2.
+
+A session key is returned.
+
+**POST** request.
+
+### rest-auth/login/
 
 Fields: username, password.
 
-**POST** request.
-
-### api/v1/token-auth/
-
-Fields: username, password.
-
-Returns a JWT token. 
+A session key is returned.
 
 **POST** request.
 
-
-### api/v1/login/    
-
-Fields: username, password.
-
-**POST** request.
-
-Not working yet.
-
-### api/v1/logout/ 
-
-**POST** request.
+### rest-auth/logout/
 
 Fields: none.
 
-Not working yet.
+**POST** request.
 
+All the endpoints require authentication, except the login and the registration ones.
 
-**NOTE**: a feature can be tested without using authentication, by changing the line `rest_framework.permissions.IsAuthenticated` to `rest_framework.permissions.AllowAny` in the file `settings.py`
+More information on the library used for login, logout and register can be found here: 
+https://django-rest-auth.readthedocs.io/en/latest/api_endpoints.html
+ 
+
+=============================================================
+
+**NOTE**: a feature can be tested without using authentication, by changing the line 
+`rest_framework.permissions.IsAuthenticated` to `rest_framework.permissions.AllowAny` in the file `settings.py`  
