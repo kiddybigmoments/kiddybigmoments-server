@@ -17,15 +17,10 @@ from webapp.views import ListKidsView, ListPhotosView, KidsDetailView, PhotosDet
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('api/v1/get-token/', TokenObtainPairView.as_view(), name="api-get-token"),
-    # path('api/v1/refresh-token/', TokenRefreshView.as_view(), name="api-refresh-token"),
-    # path('api/v1/register/', RegisterView.as_view(), name="api-register"),
-
-    # path('api/v1/', include('users.urls')),
 
     path('api/v1/rest-auth/', include('rest_auth.urls')),
     path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls'), name="api-registration"),
-    # path('api/v1/rest-auth/authenticate-token/', ),
+    # path('api/v1/rest-auth/authenticate-token/', ),    # TBD
 
     path('api/v1/users/', ListUsersView.as_view(), name="api-users-list"),
     path('api/v1/users/<int:pk>/', UsersDetailView.as_view(), name="api-users-detail"),

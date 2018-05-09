@@ -1,5 +1,5 @@
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import generics, permissions, status
 from webapp.models import Photo, Kid
@@ -7,20 +7,16 @@ from webapp.serializers import KidSerializer, PhotoSerializer, UserSerializer
 
 
 class ListKidsView(generics.ListCreateAPIView):
+    queryset = Kid.objects.all()
     serializer_class = KidSerializer
     authentication_classes = (TokenAuthentication,)
-
-    def get_queryset(self):
-        return Kid.objects.all()
+    permission_classes = (permissions.AllowAny,)
 
 
 class KidsDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (TokenAuthentication,)
     queryset = Kid.objects.all()
     serializer_class = KidSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     def get(self, request, *args, **kwargs):
         try:
@@ -34,8 +30,6 @@ class KidsDetailView(generics.RetrieveUpdateDestroyAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    # @validate_request_data
-    # Source: https://github.com/kasulani/drf_tutorial/
     def put(self, request, *args, **kwargs):
         try:
             kid = self.queryset.get(pk=kwargs["pk"])
@@ -55,14 +49,23 @@ class ListPhotosView(generics.ListCreateAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    parser_classes = (MultiPartParser, FormParser,)
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    def post(self, request):
+            photo_serializer = PhotoSerializer(data=request.data)
+            if photo_serializer.is_valid():
+                photo_serializer.save()
+                return Response(photo_serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(photo_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # (owner=self.request.user)
 
 
 class PhotosDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
     parser_classes = (FileUploadParser,)
 

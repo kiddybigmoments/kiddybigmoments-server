@@ -21,7 +21,8 @@ class ListUsersView(generics.ListCreateAPIView):
     permission_classes = (permissions.AllowAny,)
 
     """
-    def get(self, request):
+    def get(self, request):   Deleted many comment lines. A photo can now be loaded, this has been tested using Postman and the Django Admin Panel. Changed the model, so the migrations must be generated again. 
+                              The authentication is disabled for easy testing.
         users = models.CustomUser.objects.all()   # users es un objeto que hay que convertir al formato de salida
         serializer = UsersListSerializer(users, many=True)
         # El serializador obtiene un diccionario por cada usuario de la lista
@@ -73,10 +74,13 @@ class UsersDetailView(APIView):
         user.delete()
         #    serializer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-            # return redirect('home_page')
-            # redirect_to = request.GET.get("next", "home_page")
-            # return redirect(redirect_to)
-            # Tell Angular to notify the error "Usuario incorrecto o inactivo"
-            # return render(request, "login_form.html", {'form': form})
+        """
+            return redirect('home_page')
+            redirect_to = request.GET.get("next", "home_page")
+            return redirect(redirect_to)
+            Tell Angular to notify the error "Usuario incorrecto o inactivo"
+            return render(request, "login_form.html", {'form': form})
+        """
+
 
 

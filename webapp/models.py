@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from db_file_storage.model_utils import delete_file, delete_file_if_needed
 
@@ -12,9 +13,10 @@ class Kid(models.Model):
 
 class Photo(models.Model):
     kids = models.ManyToManyField(Kid, default=Kid.DEFAULT_KID)  # on_delete=models.CASCADE)
+    # owner = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=60, verbose_name="Título")
     description = models.TextField(blank=True, null=True, verbose_name="Descripción")
-    image = models.ImageField(upload_to='webapp.PhotoFile/bytes/filename/mimetype', blank=True, null=True)
+    image = models.FileField(upload_to='webapp.PhotoFile/bytes/filename/mimetype', blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
